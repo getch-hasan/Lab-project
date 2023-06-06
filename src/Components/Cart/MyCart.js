@@ -3,8 +3,9 @@ import { toast } from 'react-toastify';
 
 
 const MyCart = ({ cart, setBuy, refetch }) => {
-    const { name, price, img, _id } = cart;
+    const { name, price, img, _id,email } = cart;
     const [quantity, setQuantity] = useState(1);
+    console.log(email)
 
     const plusButton = () => {
         setQuantity((quantity) => quantity + 1);

@@ -2,12 +2,14 @@ import { useState } from 'react';
 import MyCart from './MyCart';
 import { useQuery } from 'react-query';
 import BuyModal from './BuyModal';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Cart = () => {
   const [buy, setBuy] = useState(null);
-
+ const [user]=useAuthState(auth)
   const { data: carts, isLoading, refetch } = useQuery(['carts'], () =>
-    fetch('http://localhost:8000/cart').then((res) => res.json())
+    fetch(`http://localhost:8000/cart?email=${user.email}`).then((res) => res.json())
   );
 
   if (isLoading) {

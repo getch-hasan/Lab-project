@@ -1,8 +1,13 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
+import auth from '../../firebase.init';
 
 const Product = (props) => {
+    const[user]=useAuthState(auth)
+    
     const { _id,stock, name, img, price, seller, category } = props.product
+    const email=user.email
     const addToCart = () => {
         console.log('clicked')
 
@@ -13,6 +18,7 @@ const Product = (props) => {
             price: price,
             img: img,
             stock:stock,
+            email:email
            
             
 
