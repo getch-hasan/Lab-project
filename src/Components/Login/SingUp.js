@@ -3,7 +3,7 @@ import auth from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
-
+import useToken from '../../Components/hooks/useToken';
 
 const SingUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -15,19 +15,18 @@ const SingUp = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-   
+    const [token] = useToken(user || gUser);
     const navigate = useNavigate()
 
 
     let singUpError;
-    /* if (gUser || user) {
+    if (gUser || user) {
         
-        // navigate('/appointment')//token hooks use korar age 
-    } */
-    if (user) {
+        navigate('/cart')//token hooks use korar age 
+    }
+    if (token) {
 
         navigate('/cart')
-        console.log(user)
     }
     if (loading || gLoading || updating) {
         return <div className='justify-center grid h-screen items-center'><button className="btn loading">loading</button></div>
@@ -41,7 +40,7 @@ const SingUp = () => {
         const success = await updateProfile({ displayName: data.name });
         if (success) {
             alert('Updated profile');
-            // navigate('/appointment')/sing up er por direct navigate korar jonno hooks use er age
+             navigate('/cart')//sing up er por direct navigate korar jonno hooks use er age
 
         }
 

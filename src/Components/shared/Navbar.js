@@ -4,74 +4,51 @@ import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const Navbar = () => {
-  const { user,loading,error } = useAuthState(auth);
-  const { signOut } = useSignOut(auth);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const [user] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
+
+  const menuItems = <>
+
+    <li className='ms-3'><Link to='/'>Home        </Link></li>
+    <li className='ms-3'><Link to='/cart'>Cart</Link></li>
+    <li className='ms-3'><Link to='/review'>Review     </Link></li>
+    <li className='ms-3'><Link to='/contact'>Contact Us </Link></li>
+    <li className='ms-3'><Link to='/about'>About      </Link></li>
+    <li className='ms-3'>{user ? <button onClick={async () => {
+      const success = await signOut();
+      if (success) {
+        alert('You are sign out');
+        localStorage.removeItem('accessToken')
+      }
+    }} className='btn btn-ghost text-center pt-4'>SingOut</button> : <Link to='/login'>Login      </Link>}</li></>
+
   return (
-    <div className="navbar bg-base-100 ms-5 justify-between">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex="0" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </label>
+    <div className="navbar   mb-5 bg-base-100">
+      <div className="navbar-start flex">
+        <div className="dropdown  ms-10">
+
+          <div><ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+
+            {menuItems}
+          </ul>
+          </div>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">Baby shop</Link>
+        <div><a className="btn btn-ghost normal-case text-xl">Smart Shop</a></div>
       </div>
-      <div className="navbar-center hidden lg:flex me-5">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/rating">Rating</Link>
-          </li>
-          <li>
-            <Link to="/cart">Cart</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
-          <li>
-            <Link to="/aboutUs">About Us</Link>
-          </li>
-          <li>
-            {user ? (
-              <button
-                onClick={async () => {
-                  const success = await signOut(auth);
-                  if (success) {
-                    alert('You are signed out');
-                  }
-                }}
-                className="btn btn-ghost"
-              >
-                Sign Out
-              </button>
-            ) : (
-              <Link to="/login">Login</Link>
-            )}
-          </li>
+      <div className="navbar-end me-12 hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 items-center">
+
+
+          {menuItems}
         </ul>
       </div>
+      <div className='nav-end'>
+        <label tabIndex="1" htmlFor="dashboard-sidebar" className="btn btn-ghost lg:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeilnecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        </label>
+
+      </div>
+
     </div>
   );
 };

@@ -3,8 +3,8 @@ import auth from '../../firebase.init';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
-
+import { useEffect } from 'react';
+import useToken from '../../Components/hooks/useToken';
 
 
 const Login = () => {
@@ -19,15 +19,19 @@ const Login = () => {
     let singInError;
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(gUser )
-    
-   
+    const [token] = useToken(user || gUser)
+    let from = location.state?.from?.pathname || '/'
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true })
+
+        }
+    }, [token, from, navigate])
+    if (loading || gLoading) {
+        return <div className='justify-center grid h-screen items-center'><button className="btn loading">loading</button></div>
+    }
     if (error || gError) {
         singInError = <small><p className='text-red-500'>{error?.message || gError?.message}</p></small>
-    }
-    if(gUser){
-        navigate('/cart')
-        console.log(gUser )
     }
 
 

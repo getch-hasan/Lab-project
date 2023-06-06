@@ -18,14 +18,14 @@ function App() {
       <Navbar></Navbar>
       <Routes>
         <Route path='/' element={<Home></Home>} ></Route>
-        <Route path='/rating' element={<Rating></Rating>} ></Route>
+        <Route path='/review' element={<Rating></Rating>} ></Route>
         <Route path='/cart' element={<RequireAuth><Cart></Cart></RequireAuth>} ></Route>
         <Route path='/contact' element={<Contact></Contact>} ></Route>
-        <Route path='/aboutUs' element={<AboutUs></AboutUs>} ></Route>
+        <Route path='/about' element={<AboutUs></AboutUs>} ></Route>
         <Route path='/Login' element={<Login></Login>} ></Route>
         <Route path='/singUp' element={<SingUp></SingUp>} ></Route>
       </Routes>
-      <Footer></Footer>
+      
 
 
     </div>
