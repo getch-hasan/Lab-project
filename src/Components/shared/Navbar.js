@@ -11,7 +11,7 @@ const Navbar = () => {
 
     <li className='ms-3'><Link to='/'>Home        </Link></li>
     <li className='ms-3'><Link to='/cart'>Cart</Link></li>
-    <li className='ms-3'><Link to='/review'>Review     </Link></li>
+    <li className='ms-3'><Link to='/review'>My Order    </Link></li>
     <li className='ms-3'><Link to='/contact'>Contact Us </Link></li>
     <li className='ms-3'><Link to='/about'>About      </Link></li>
     <li className='ms-3'>{user ? <button onClick={async () => {

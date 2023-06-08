@@ -4,6 +4,7 @@ import Product from './Product';
 import Footer from '../shared/Footer';
 
 
+
 const Home = () => {
     const [products, setProducts] = useState([])
     const [searchQuery, setSearchQuery] = useState('');
@@ -19,8 +20,8 @@ const Home = () => {
             })
     }, [])
     if (isLoading) {
-        return  <span class="loading s loading-ring loading-lg"></span>
-        
+        return <span class="loading s loading-ring loading-lg"></span>
+
     }
 
     const handleSearch = (e) => {
@@ -46,15 +47,13 @@ const Home = () => {
                 <button onClick={() => handleSearch()} className='btn btn-primary ms-4'>Search</button>
             </div>
 
-
+           
 
             <div className='ms-7  grid gap-4 lg:grid-cols-3  grid-rows-3 sm:grid-cols-1'>
 
 
 
                 {
-
-
 
                     filteredProducts.map(product => <Product
                         product={product} ></Product>)

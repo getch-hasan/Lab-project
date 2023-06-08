@@ -22,11 +22,11 @@ const Login = () => {
     const [token] = useToken(user || gUser)
     let from = location.state?.from?.pathname || '/'
     useEffect(() => {
-        if (token) {
+        if (token ||user||gUser) {
             navigate(from, { replace: true })
 
         }
-    }, [token, from, navigate])
+    }, [token,user,gUser, from, navigate])
     if (loading || gLoading) {
         return <div className='justify-center grid h-screen items-center'><button className="btn loading">loading</button></div>
     }
