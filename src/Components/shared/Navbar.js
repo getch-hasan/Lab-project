@@ -11,19 +11,45 @@ const Navbar = () => {
 
     <li className='ms-3'><Link to='/'>Home        </Link></li>
     <li className='ms-3'><Link to='/cart'>Cart</Link></li>
-    <li className='ms-3'><Link to='/review'>My Order    </Link></li>
+    <li className='ms-3'><Link to='/myOrder'>My Order    </Link></li>
     <li className='ms-3'><Link to='/contact'>Contact Us </Link></li>
     <li className='ms-3'><Link to='/about'>About      </Link></li>
-    <li className='ms-3'>{user ? <button onClick={async () => {
-      const success = await signOut();
-      if (success) {
-        alert('You are sign out');
-        localStorage.removeItem('accessToken')
-      }
-    }} className='btn btn-ghost text-center pt-4'>SingOut</button> : <Link to='/login'>Login      </Link>}</li></>
+    {
+      user ? <li>
+        <div class="dropdown">
+          <div tabindex="0" class="avatar btn btn-ghost">
+            <div class="w-12  rounded-full">
+              <img src={user?.img} />
+            </div>
+          </div>
+          <div tabindex="0" class="dropdown-content z-[1] mt-48  card  w-40  shadow bg-primary text-primary-content">
+            <div class=" me-32 ">
+              <ul>
+                <h1>{user?.displayName}</h1>
+                <li className='text-xl'>Setting</li>
+                <li className='text-xl'>Profile</li>
+                <li>
+                  <button onClick={async () => {
+                    const success = await signOut();
+                    if (success) {
+                      alert('You are sign out');
+                      localStorage.removeItem('accessToken')
+                    }
+                  }} className='btn btn-ghost text-center pt-4'>SingOut</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </li> : <li><div className='ms-3'><Link to='/login'>Login </Link></div></li>
+    }
+
+  </>
 
   return (
-    <div className="navbar   mb-5 bg-base-100">
+    <div className="navbar  mb-5 bg-base-200">
       <div className="navbar-start flex">
         <div className="dropdown  ms-10">
 
@@ -33,7 +59,7 @@ const Navbar = () => {
           </ul>
           </div>
         </div>
-        <div><a className="btn btn-ghost normal-case text-xl">Smart Shop</a></div>
+        <div><Link to='/' className="btn btn-ghost normal-case text-xl">Smart Shop</Link></div>
       </div>
       <div className="navbar-end me-12 hidden lg:flex">
         <ul className="menu menu-horizontal px-1 items-center">

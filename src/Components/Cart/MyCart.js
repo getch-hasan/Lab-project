@@ -26,7 +26,7 @@ const MyCart = ({ cart, buyProduct, setBuyProduct, refetch }) => {
                     console.log(data.deletedCount);
                     if (data.deletedCount > 0) {
                         toast(` the ${name} is deleted`);
-                        refetch();
+                        refetch(id);
                     } else {
                         toast('not deleted');
                     }
@@ -75,7 +75,7 @@ const MyCart = ({ cart, buyProduct, setBuyProduct, refetch }) => {
 
 
                     <div>
-                        <button class="btn btn-primary"
+                        <button className="btn btn-primary"
 
                             onClick={() => handelBuy()}>Buy Now
                         </button>

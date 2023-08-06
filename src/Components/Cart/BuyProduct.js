@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 
 const BuyProduct = ({ buyProduct }) => {
-    const { name, img, stock, seller, category, _id, price } = buyProduct
+    const { name, img,  _id, price } = buyProduct
     console.log(buyProduct)
     const [quantity, setQuantity] = useState(1);
     const [user] = useAuthState(auth)
@@ -37,21 +37,22 @@ const BuyProduct = ({ buyProduct }) => {
         setAddress(event.target.value);
     };
     const handelOrder = () => {
+       
+     
         const order = {
             orderId: _id,
             name: name,
             totalPrice: quantity * price,
             img: img,
-            email: user.email,
+            email: user?.email,
             address: address,
             phone: phone,
-            quantity:quantity
-
+            quantity: quantity
 
 
         }
         console.log(order)
-        nevigate('/cart')
+       
 
         fetch('http://localhost:8000/order', {
             method: 'POST',
@@ -74,6 +75,22 @@ const BuyProduct = ({ buyProduct }) => {
 
 
             })
+            const url = `http://localhost:8000/cart/${_id}`;
+            fetch(url, {
+                method: 'DELETE',
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data.deletedCount);
+                    if (data.deletedCount > 0) {
+                        toast(` the ${name} is deleted`);
+                        
+                    } else {
+                        toast('not deleted');
+                    }
+                });
+         
+            nevigate('/cart')
 
 
 
@@ -81,13 +98,13 @@ const BuyProduct = ({ buyProduct }) => {
     }
 
     return (
-        <div className='mt-2'>
+        <div className=''>
 
-            <div class="hero min-h-screen  bg-base-200">
-                <div class=" bg-base-100 rounded-lg ">
-                    <img src={img} class="max-w-sm rounded-lg shadow-2xl" />
+            <div className="hero min-h-screen mt-2 mb-4  bg-base-200">
+                <div className=" bg-base-100 rounded-lg ">
+                    <img src={img} className="max-w-xs rounded-lg shadow-2xl" />
 
-                    <h1 class="text-xl mt-2 font-bold">{name}</h1>
+                    <h1 className="text-xl mt-2 font-bold">{name}</h1>
                     <input
                         type="text"
                         required
@@ -109,7 +126,7 @@ const BuyProduct = ({ buyProduct }) => {
                             required
                         ></textarea>
                     </div>
-                    <p class="py-6 font-bold text-lg">Total Price :${price * quantity}</p>
+                    <p className="py-6 font-bold text-lg">Total Price :${price * quantity}</p>
                     <div className='flex justify-between items-center' ><h1 className='flex ms-2 font-bold text-center'> Quantity
                         <button onClick={minusButton} className='ms-3 font-bold'>
                             -
@@ -118,7 +135,9 @@ const BuyProduct = ({ buyProduct }) => {
                         <button onClick={plusButton} className='font-bold ms-4'>
                             +
                         </button>
-                    </h1><button onClick={() => handelOrder()} class="btn btn-primary m-2"
+                    </h1><button onClick={() => handelOrder()}
+                     disabled={phone.length < 10 || address.length < 10}
+                     className="btn btn-primary m-2"
 
                     >order</button>
                     </div>

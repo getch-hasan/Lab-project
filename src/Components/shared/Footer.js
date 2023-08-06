@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
+        <div className=''>
              <div className='bg-neutral ' >
             <footer className="footer p-10  text-neutral-content">
                 <div>

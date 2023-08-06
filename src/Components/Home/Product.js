@@ -4,10 +4,10 @@ import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const Product = (props) => {
-    const[user]=useAuthState(auth)
-    
-    const { _id,stock, name, img, price, seller, category } = props.product
-    const email=user.email
+    const [user] = useAuthState(auth)
+
+    const { _id, stock, name, img, price, seller, category } = props.product
+    const email = user?.email
     const addToCart = () => {
         console.log('clicked')
 
@@ -17,13 +17,13 @@ const Product = (props) => {
             name: name,
             price: price,
             img: img,
-            stock:stock,
-            email:email
-           
-            
+            stock: stock,
+            email: email
+
+
 
         }
-       
+
         fetch('http://localhost:8000/cart', {
             method: 'POST',
             headers: {
@@ -50,17 +50,17 @@ const Product = (props) => {
 
 
     return (
-        <div class="card card-compact w-96 bg-base-100 shadow-xl">
+        <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <figure><img src={img} alt="" /></figure>
-            <div class="card-body">
-                <h1 class=" text-center">{name}</h1>
+            <div className="card-body">
+                <h1 className=" text-center">{name}</h1>
                 <p>{category}</p>
                 <p>{seller}</p>
                 <p className='font-bold'>Price: ${price}</p>
                 <p>stock :{stock}</p>
 
-                <div class="card-actions justify-end">
-                    <button onClick={() => addToCart()} class="btn btn-primary">Add to cart</button>
+                <div className="card-actions justify-end">
+                    <button onClick={() => addToCart()} className="btn btn-primary">Add to cart</button>
                 </div>
             </div>
         </div>
