@@ -6,9 +6,7 @@ const Dashboard = () => {
   return (
     <div class="drawer  lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col items-center ">
-
-
+      <div class="drawer-content flex flex-col items-center "> 
         <Outlet></Outlet>
       </div>
       <div class="drawer-side">

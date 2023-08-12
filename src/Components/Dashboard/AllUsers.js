@@ -8,7 +8,6 @@ const AllUsers = () => {
         fetch('http://localhost:8000/user',
             {
                 method: 'GET',
-
             }
         )
             .then(res =>res.json()
