@@ -7,23 +7,28 @@ const Navbar = () => {
   const [user] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
 
+
   const menuItems = <>
 
     <li className='ms-3'><Link to='/'>Home        </Link></li>
     <li className='ms-3'><Link to='/cart'>Cart</Link></li>
     <li className='ms-3'><Link to='/myOrder'>My Order    </Link></li>
+    {
+      user && <li className='ms-3'><Link to='/dashboard'>Dashboard  </Link></li>
+    }
+
     <li className='ms-3'><Link to='/contact'>Contact Us </Link></li>
     <li className='ms-3'><Link to='/about'>About      </Link></li>
     {
       user ? <li>
         <div class="dropdown">
-          <div tabindex="0" class="avatar btn btn-ghost">
+          <div tabindex="0" class="avatar">
             <div class="w-12  rounded-full">
               <img src={user?.img} />
             </div>
           </div>
-          <div tabindex="0" class="dropdown-content z-[1] mt-48  card  w-40  shadow bg-primary text-primary-content">
-            <div class=" me-32 ">
+          <div tabindex="0" class="dropdown-content z-[1] mt-48 me-32 card  w-40  shadow bg-primary text-primary-content">
+            <div class="  ">
               <ul>
                 <h1>{user?.displayName}</h1>
                 <li className='text-xl'>Setting</li>

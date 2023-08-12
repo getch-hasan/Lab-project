@@ -4,9 +4,10 @@ const useToken = (user) => {
     const [token, setToken] = useState('');
     useEffect(() => {
         const email = user?.user?.email;
-        const currentUser = { email: email }
+        console.log(user)
+        const currentUser = { email: email,name:user?.user?.displayName}
         if (email) {
-            fetch(`https://doctor-portal-server-ag3l.onrender.com/user/${email}`,
+            fetch(`http://localhost:8000/user/${email}`,
                 {
                     method: 'PUT',
                     headers: {

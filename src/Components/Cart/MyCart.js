@@ -25,10 +25,10 @@ const MyCart = ({ cart, buyProduct, setBuyProduct, refetch }) => {
                 .then((data) => {
                     console.log(data.deletedCount);
                     if (data.deletedCount > 0) {
-                        toast(` the ${name} is deleted`);
+                        toast.success(` the ${name} is deleted`);
                         refetch(id);
                     } else {
-                        toast('not deleted');
+                        toast.error('not deleted');
                     }
                 });
         }

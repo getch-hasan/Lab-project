@@ -13,6 +13,9 @@ import SingUp from './Components/Login/SingUp';
 import RequireAuth from './Components/Required/Requird';
 import BuyProduct from './Components/Cart/BuyProduct';
 import { useState } from 'react';
+import Dashboard from './Components/Dashboard/Dashboard';
+import AllUsers from './Components/Dashboard/AllUsers';
+import AddProduct from './Components/Dashboard/AddProduct';
 
 
 function App() {
@@ -24,10 +27,15 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>} ></Route>
         <Route path='/myOrder' element={<RequireAuth><Rating></Rating></RequireAuth>} ></Route>
-        <Route path='/cart' element={<RequireAuth><Cart 
-        setBuyProduct={setBuyProduct} 
-        buyProduct={buyProduct} 
-       ></Cart>
+        <Route path='dashboard' element={<RequireAuth><Dashboard></Dashboard> </RequireAuth>} >
+          <Route index element={<AllUsers></AllUsers>} ></Route>
+          <Route path='dashboard/addProduct' element={<AddProduct></AddProduct>} ></Route>
+        </Route>
+
+        <Route path='/cart' element={<RequireAuth><Cart
+          setBuyProduct={setBuyProduct}
+          buyProduct={buyProduct}
+        ></Cart>
         </RequireAuth>} >
 
         </Route>
@@ -36,13 +44,13 @@ function App() {
         <Route path='/about' element={<AboutUs></AboutUs>} ></Route>
         <Route path='/Login' element={<Login></Login>} ></Route>
         <Route path='/singUp' element={<SingUp></SingUp>} ></Route>
-        <Route path='/buy' element={<BuyProduct 
-        setBuyProduct={setBuyProduct} buyProduct={buyProduct}
-        
+        <Route path='/buy' element={<BuyProduct
+          setBuyProduct={setBuyProduct} buyProduct={buyProduct}
+
         ></BuyProduct>} ></Route>
-        
+
       </Routes>
-      
+
 
 
     </div>
