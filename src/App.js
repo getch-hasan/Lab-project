@@ -4,7 +4,6 @@ import './App.css';
 
 import Navbar from './Components/shared/Navbar';
 import Home from './Components/Home/Home';
-import Rating from './Components/rating/Rating';
 import Cart from './Components/Cart/Cart';
 import Contact from './Components/Contact/Contact';
 import AboutUs from './Components/aboutUs/AboutUs';
@@ -16,17 +15,28 @@ import { useState } from 'react';
 import Dashboard from './Components/Dashboard/Dashboard';
 import AllUsers from './Components/Dashboard/AllUsers';
 import AddProduct from './Components/Dashboard/AddProduct';
+import MyOrder from './Components/MyOrder/MyOrder';
+import Payment from './Components/MyOrder/Payment';
+
 
 
 function App() {
   const [buyProduct, setBuyProduct] = useState(null)
+  const [orders,setOrders]=useState(null)
 
   return (
     <div className="App">
       <Navbar></Navbar>
       <Routes>
         <Route path='/' element={<Home></Home>} ></Route>
-        <Route path='/myOrder' element={<RequireAuth><Rating></Rating></RequireAuth>} ></Route>
+        <Route path='/myOrder' element={<RequireAuth><MyOrder
+        orders={orders}
+        setOrders={setOrders}
+        ></MyOrder></RequireAuth>} ></Route>
+        <Route path='/payment' element={<RequireAuth><Payment
+         orders={orders}
+         setOrders={setOrders}
+        ></Payment></RequireAuth>} ></Route>
         <Route path='dashboard' element={<RequireAuth><Dashboard></Dashboard> </RequireAuth>} >
           <Route index element={<AllUsers></AllUsers>} ></Route>
           <Route path='dashboard/addProduct' element={<AddProduct></AddProduct>} ></Route>

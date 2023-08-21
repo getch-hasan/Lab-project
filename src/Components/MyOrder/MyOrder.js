@@ -5,31 +5,34 @@ import Order from './Order';
 import { getOverlayDirection } from 'react-bootstrap/esm/helpers';
 import { useQuery } from 'react-query';
 
-const Rating = () => {
-    const [user]=useAuthState(auth)
-    
-    
-    const { data: orders, isLoading, refetch } = useQuery(['orders'], () =>
+const MyOrder = ({ orders, setOrders }) => {
+  const [user] = useAuthState(auth)
+
+
+  const { data: orderss, isLoading, refetch } = useQuery(['orderss'], () =>
     fetch(`http://localhost:8000/order?email=${user.email}`).then((res) => res.json())
-    
+
   );
 
   if (isLoading) {
     return <span className="loading s loading-ring loading-lg"></span>;
   }
 
- 
-    return (
-        <div className='grid  justify-center'>
-            {
-            
-            orders.map(order=><Order
-            order={order}
-            refetch={refetch}></Order>)
-            }
-            
-        </div>
-    );
+
+  return (
+    <div className='grid  justify-center'>
+      {
+
+        orderss.map(order => <Order
+          order={order}
+          orders={orders}
+          setOrders={setOrders}
+
+          refetch={refetch}></Order>)
+      }
+
+    </div>
+  );
 };
 
-export default Rating;
+export default MyOrder;

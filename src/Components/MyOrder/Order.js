@@ -1,8 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const Order = (props) => {
-    const { name, img, totalPrice, quantity, address } = props.order
-   
+const Order = ({order,orders,setOrders}) => {
+  
+    const { name, img, totalPrice, quantity, address } = order
+    
+   setOrders(order);
+   console.log(orders)
 
 
     return (
@@ -18,7 +23,8 @@ const Order = (props) => {
                 <p>Quantity :{quantity}</p>
                 <p>Total Price : <span className='font-bold'>${totalPrice}</span> </p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-warning">cencel</button>
+                    <button className="btn btn-pill btn-warning">cencel</button>
+                    <Link to='/payment'><button className='btn btn-info'>pay</button></Link>
                 </div>
             </div>
         </div>
