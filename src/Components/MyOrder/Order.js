@@ -2,12 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const Order = ({order,orders,setOrders}) => {
-  
-    const { name, img, totalPrice, quantity, address } = order
-    
-   setOrders(order);
-   console.log(orders)
+const Order = ({ order, refetch }) => {
+
+    const { name, img, totalPrice, quantity, address, _id, paid } = order
+
+
 
 
     return (
@@ -24,7 +23,11 @@ const Order = ({order,orders,setOrders}) => {
                 <p>Total Price : <span className='font-bold'>${totalPrice}</span> </p>
                 <div className="card-actions justify-end">
                     <button className="btn btn-pill btn-warning">cencel</button>
-                    <Link to='/payment'><button className='btn btn-info'>pay</button></Link>
+                    {
+                        paid==='true'?  <p>paid</p>:<Link to={`/payment/${_id}`}><button className='btn btn-info'>pay</button></Link>
+
+                    }
+                    
                 </div>
             </div>
         </div>

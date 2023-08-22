@@ -22,7 +22,7 @@ import Payment from './Components/MyOrder/Payment';
 
 function App() {
   const [buyProduct, setBuyProduct] = useState(null)
-  const [orders,setOrders]=useState(null)
+ // const [orders,setOrders]=useState(null)
 
   return (
     <div className="App">
@@ -30,12 +30,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>} ></Route>
         <Route path='/myOrder' element={<RequireAuth><MyOrder
-        orders={orders}
-        setOrders={setOrders}
+       /*  orders={orders}
+        setOrders={setOrders} */
         ></MyOrder></RequireAuth>} ></Route>
-        <Route path='/payment' element={<RequireAuth><Payment
-         orders={orders}
-         setOrders={setOrders}
+        <Route path='/payment/:id' element={<RequireAuth><Payment
+         
         ></Payment></RequireAuth>} ></Route>
         <Route path='dashboard' element={<RequireAuth><Dashboard></Dashboard> </RequireAuth>} >
           <Route index element={<AllUsers></AllUsers>} ></Route>
